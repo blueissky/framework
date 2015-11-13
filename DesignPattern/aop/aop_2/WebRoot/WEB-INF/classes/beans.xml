@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="businessService" class="com.zdp.service.BusinessServiceImpl"
+		aopClass="com.zdp.advisor.BeforeMethodAdvisor" aopType="before">
+	</bean>
+</beans>
