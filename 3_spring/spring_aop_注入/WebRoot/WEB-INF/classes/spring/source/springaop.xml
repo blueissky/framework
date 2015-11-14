@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+ xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+ http://www.springframework.org/schema/aop 
+ http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+ 
+<!-- 需检测的BEAN -->
+  <bean id="general" class="spring.aop.General"/>
+<!-- 检测执行类 -->  
+  <bean id="check" class="spring.aop.Check"/>
+   
+  <aop:config>
+    <aop:aspect id="myAop" ref="check">
+      <aop:pointcut id="target" expression="execution(* spring.aop.General.execute(..))"/>
+      <aop:before method="checkValidity" pointcut-ref="target"/>
+      <aop:after method="addLog" pointcut-ref="target"/>
+    </aop:aspect>
+  </aop:config>
+</beans>
+
+<!-- 注意：
+
+execution(* com.spring.aop.*.*(..))"/
+
+这样写应该就可以了
+
+这是com.aptech.jb.epet.dao.hibimpl 包下所有的类的所有方法。。
+
+第一个*代表所有的返回值类型
+
+第二个*代表所有的类
+
+第三个*代表类所有方法
+
+最后一个..代表所有的参数。 -->
